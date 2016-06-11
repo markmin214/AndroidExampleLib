@@ -9,8 +9,72 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.myapplication.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+        <TextView
+            android:id="@+id/word_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:text="Hello World!"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/word_answer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_quesion_margin"
+            android:text="Hello World!" />
+        <TextView
+            android:id="@+id/word_answer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_quesion_margin"
+            android:text="Hello World!" />
+        <TextView
+            android:id="@+id/word_answer3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_quesion_margin"
+            android:text="Hello World!" />
+        <TextView
+            android:id="@+id/word_answer4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_quesion_margin"
+            android:text="Hello World!" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/pre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous" />
+        <Button
+            android:id="@+id/view_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Answer" />
+        <Button
+            android:id="@+id/next_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:text="Next"
+            />
+
+    </LinearLayout>
 </RelativeLayout>
