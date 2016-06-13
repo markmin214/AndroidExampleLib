@@ -1,1 +1,3 @@
-include ':app', ':myapplication2'
+include   ':application_sqlite'
+// ':app',//Activity intent  startActivityForResult
+//':myapplication2', //basic template
