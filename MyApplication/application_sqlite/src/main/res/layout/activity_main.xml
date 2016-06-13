@@ -13,4 +13,33 @@
         android:text="Create Database"
         />
 
+    <Button
+        android:id="@+id/tv_insert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="insert Database"
+        />
+    <Button
+        android:id="@+id/tv_updata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="updata Database"
+        />
+    <Button
+        android:id="@+id/tv_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="delete Database"
+        />
+
+    <Button
+        android:id="@+id/tv_query"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="query Database"
+        />
+     <TextView
+         android:id="@+id/tv_show_content"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
 </LinearLayout>
