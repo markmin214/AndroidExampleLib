@@ -1,4 +1,5 @@
-include ':appsimplecursoradapter'
+include  ':app_custom_layout'
+//':appsimplecursoradapter',
 //':application_sqlite',
 // ':app',//Activity intent  startActivityForResult
 //':myapplication2', //basic template
