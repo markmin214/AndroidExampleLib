@@ -1,4 +1,5 @@
-include  ':app_custom_layout'
+include ':app_activity_launchmode'
+//':app_custom_layout',
 //':appsimplecursoradapter',
 //':application_sqlite',
 // ':app',//Activity intent  startActivityForResult
