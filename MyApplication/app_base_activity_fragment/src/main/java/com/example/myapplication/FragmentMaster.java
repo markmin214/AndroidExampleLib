@@ -50,6 +50,11 @@ public class FragmentMaster extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    public static FragmentMaster newInstance0() {
+        FragmentMaster fragment = new FragmentMaster();
+
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,8 +85,8 @@ public class FragmentMaster extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
         }
     }
 
