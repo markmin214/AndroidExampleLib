@@ -10,4 +10,9 @@ public class MainActivity extends SingleFragmentActivity {
 //        return new BlankFragment();
         return new FragmentMaster().newInstance0();
     }
+
+    @Override
+    public int getLayoutResID() {
+        return R.layout.activity_main;
+    }
 }

@@ -1,12 +1,17 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -22,6 +27,7 @@ public class FragmentMaster extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String EVALUATE_DIALOG = "evaluate dialog";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -41,7 +47,8 @@ public class FragmentMaster extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment FragmentMaster.
      */
-    // TODO: Rename and change types and number of parameters
+    // setArguments ［传递参数］
+    // 方法必须在fragment创建以后，添加给Activity前完成
     public static FragmentMaster newInstance(String param1, String param2) {
         FragmentMaster fragment = new FragmentMaster();
         Bundle args = new Bundle();
@@ -55,6 +62,13 @@ public class FragmentMaster extends Fragment {
 
         return fragment;
     }
+/*
+［Fragment的startActivityForResult］
+Fragment中存在startActivityForResult（）以及onActivityResult（）方法，但是呢，没有setResult（）方法，用于设置返回的intent，
+        这样我们就需要通过调用getActivity().setResult(ListTitleFragment.REQUEST_DETAIL, intent);。
+        一般在 oncreate 中设置getActivity().setResult
+
+*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,14 +76,33 @@ public class FragmentMaster extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            Intent intent = new Intent();
+            intent.putExtra("result","fragment result");
+            getActivity().setResult(Activity.RESULT_OK,intent);
+
         }
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_master, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_fragment_master, container, false);
+        TextView tv = (TextView) rootView.findViewById(R.id.text_click);
+
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment evaluateDf = new EvaluateDialog();
+                evaluateDf.setTargetFragment(FragmentMaster.this,1);
+                evaluateDf.show(getFragmentManager(),EVALUATE_DIALOG);
+            }
+        });
+        return  rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -110,4 +143,22 @@ public class FragmentMaster extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1)
+        {
+           String re = data.getStringExtra("result");
+            Toast.makeText(getActivity(),"you click "+ re,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
 }
+
+
+
+
+

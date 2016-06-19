@@ -18,3 +18,7 @@
             }
 
 
+3.Fragment间的数据传递
+启动的时候调用了Fragment.setTargetFragment
+传递的时候通过getTargetFragment().onActivityResult
+获取的时候还是在onActivityResult
