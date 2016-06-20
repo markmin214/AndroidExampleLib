@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         mViewpager  = (ViewPager) findViewById(R.id.viewpager);
-        fragmentContent = (FrameLayout) findViewById(R.id.fragment_content);
 
         first = (Button) findViewById(R.id.first);
         first.setOnClickListener(this);
