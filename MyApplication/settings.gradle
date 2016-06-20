@@ -1,4 +1,4 @@
-include ':app_base_activity_fragment'
+include ':app_base_activity_fragment', ':app_viewpage'
 //':app_activity_launchmode',
 //':app_custom_layout',
 //':appsimplecursoradapter',
