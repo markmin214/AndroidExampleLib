@@ -1,2 +1,1 @@
-APP_ABI := "armeabi-v7a"
-APP_OPIM :=debug
+APP_ABI := all

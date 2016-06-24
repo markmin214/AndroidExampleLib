@@ -1,4 +1,4 @@
-include  ':app_jnihello'
+include ':app_jnihello', ':app_singleModel'
 //':app_base_activity_fragment', ':app_viewpage', ':app_tabviewpager', ':app_contextmenu',
 //':app_activity_launchmode',
 //':app_custom_layout',
