@@ -21,10 +21,11 @@ public class MainActivity extends AppCompatActivity {
                 case 0x123:
                     tvShow.setText("MainHandle   0x123");// main updata UI
                     break;
-                case 0x1:
+                case 0x11:
                     tvShow.setText((CharSequence) msg.obj);// main updata UI
+                    tvShow.append("\n From Child 1 MainHandle");// main updata UI
                     break;
-                case 0x2:
+                case 0x22:
                     tvShow.setText("MainHandle   0x123");// main updata UI
                     break;
             }
@@ -59,9 +60,10 @@ bnButton1.setOnClickListener(new View.OnClickListener() {
    public class  ChildThread extends Thread{
 
        Handler childHandler1 = null;
+       private  int nClicknum = 0;
        @Override
        public void run() {
-
+     this.setName("Child Thread");
            Looper.prepare();
             childHandler1 = new Handler(){
                @Override
@@ -71,7 +73,9 @@ bnButton1.setOnClickListener(new View.OnClickListener() {
                        sleep(1000);
 
                        Message childmasg1 = new Message();
-                       childmasg1.obj = "From ChildThread send handle";
+                       childmasg1.obj = getLooper().getThread().getName()
+                               + "\n From ChildThread send handle Times:"
+                       + String.valueOf(++nClicknum);
                        childmasg1.what = 0x11;
 
                        mMainHandle.sendMessage(childmasg1);
