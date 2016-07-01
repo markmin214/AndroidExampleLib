@@ -3,6 +3,7 @@
     package="com.example.myapplication">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,10 +11,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".LoginActivity">
-
-        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity"></activity>
 
         <receiver android:name=".ForceOfflineReceiver">
             <intent-filter>
@@ -22,6 +21,9 @@
         </receiver>
 
         <activity android:name=".WebviewActivity">
+
+        </activity>
+        <activity android:name=".SendHttpURLConActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
