@@ -1,4 +1,4 @@
-include ':app_aidl_sevice'
+include ':app_aidl_sevice', ':app_smsReceiver'
 include ':app_aidl_client'
 // ':app_sample',
 //':app_jnihello', ':app_singleModel', ':app_javalearn', ':app_handle', 
