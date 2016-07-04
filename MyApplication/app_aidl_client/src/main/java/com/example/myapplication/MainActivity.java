@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ IAddAidlInterface iAddAidlInterface = null;
     private ServiceConnection conn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-         iAddAidlInterface = (IAddAidlInterface) service;
+         iAddAidlInterface = IAddAidlInterface.Stub.asInterface(service) ;
         }
 
         @Override
@@ -60,7 +61,12 @@ IAddAidlInterface iAddAidlInterface = null;
     public void onClick(View v) {
         int num1 = Integer.parseInt(etNum1.getText().toString());
         int num2 = Integer.parseInt(etNum2.getText().toString());
-        int sum = num1+num2;
+        int sum = 0;
+        try {
+            sum = iAddAidlInterface.add(num1,num2);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         tvShow.setText(String.valueOf(sum));
     }
 
