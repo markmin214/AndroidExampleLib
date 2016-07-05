@@ -19,13 +19,16 @@
         <service
             android:name=".IRemoteService"
             android:enabled="true"
-            android:process=":remote"
-            android:exported="true">
+            android:exported="true"
+            android:process=":remote">
             <intent-filter>
-                <action android:name="com.example.myapplication.IRemoteService"/>
+                <action android:name="com.example.myapplication.IRemoteService" />
             </intent-filter>
-
         </service>
+        <service
+            android:name=".BookManagerService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
