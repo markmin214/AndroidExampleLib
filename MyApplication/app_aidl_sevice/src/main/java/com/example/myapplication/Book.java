@@ -23,6 +23,11 @@ public class Book implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "ID: " + bookID +"  Name: " + bookName;
+    }
+
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(bookID);
         dest.writeString(bookName);
