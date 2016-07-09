@@ -83,7 +83,7 @@ public class BookManagerService extends Service {
 
                 }
             }
-        });
+        }).start();
     }
 
     private void onNewBookArrived(Book newbook) throws RemoteException {

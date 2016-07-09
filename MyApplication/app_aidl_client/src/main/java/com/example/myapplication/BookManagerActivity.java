@@ -4,7 +4,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,16 +17,37 @@ import java.util.List;
 
 public class BookManagerActivity extends AppCompatActivity {
 
+    private static final String TAG = "BookManagerActivity";
     IBookManager bookManager = null;
     List<Book> books = null;
+    private static final int MESSAGE_NEW_BOOK_ARRIVED = 1;
 
 
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == MESSAGE_NEW_BOOK_ARRIVED) {
+                Log.i(TAG,"11 mylog: "+ msg.obj);
+            }
+
+        }
+    };
+
+
+    private IOnNewBookArrivedListener onArrivedListen =
+            new IOnNewBookArrivedListener.Stub() {
+                @Override
+                public void onNewBookArrived(Book newBook) throws RemoteException {
+                    
+                }
+            };
     private ServiceConnection conn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             bookManager = IBookManager.Stub.asInterface(service);
             try {
                 books = bookManager.getBookList();
+              bookManager.registerListener(onArrivedListen);
 
                 Log.i("BookManagerActivityLOG", "Books: " + books.toString());
             } catch (RemoteException e) {
