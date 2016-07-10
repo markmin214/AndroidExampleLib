@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
 import java.util.List;
@@ -12,8 +13,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class BookManagerService extends Service {
 
     private CopyOnWriteArrayList<Book> mBookList = new CopyOnWriteArrayList<Book>();
+
     private CopyOnWriteArrayList<IOnNewBookArrivedListener> listeners =
             new CopyOnWriteArrayList<IOnNewBookArrivedListener>();
+    private RemoteCallbackList<IOnNewBookArrivedListener> cbListeners =
+            new RemoteCallbackList<>();
     private AtomicBoolean mIsServiceDestoryed = new AtomicBoolean(false);
 
 
@@ -39,6 +43,7 @@ public class BookManagerService extends Service {
         public void registerListener(IOnNewBookArrivedListener listener) throws RemoteException {
             if (!listeners.contains(listener)) {
                 listeners.add(listener);
+                cbListeners.register(listener);
             }
         }
 
@@ -46,6 +51,7 @@ public class BookManagerService extends Service {
         public void unregisterListener(IOnNewBookArrivedListener listener) throws RemoteException {
             if (listeners.contains(listener)) {
                 listeners.remove(listener);
+                cbListeners.unregister(listener);
             }
         }
     };
@@ -89,9 +95,17 @@ public class BookManagerService extends Service {
     private void onNewBookArrived(Book newbook) throws RemoteException {
         mBookList.add(newbook);
         for (int i=0;i<listeners.size();i++) {
-            IOnNewBookArrivedListener listener = listeners.get(i);
-            listener.onNewBookArrived(newbook);
+            IOnNewBookArrivedListener l = listeners.get(i);
+            l.onNewBookArrived(newbook);
         }
+
+        final int N = cbListeners.beginBroadcast();
+        for (int i = 0; i<N; i++) {
+            IOnNewBookArrivedListener l  = cbListeners.getBroadcastItem(i);
+            l.onNewBookArrived(newbook);
+        }
+        cbListeners.finishBroadcast();
+
     }
 
     @Override

@@ -18,6 +18,9 @@ import java.util.List;
 public class BookManagerActivity extends AppCompatActivity {
 
     private static final String TAG = "BookManagerActivity";
+
+    TextView show;
+
     IBookManager bookManager = null;
     List<Book> books = null;
     private static final int MESSAGE_NEW_BOOK_ARRIVED = 1;
@@ -27,7 +30,9 @@ public class BookManagerActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == MESSAGE_NEW_BOOK_ARRIVED) {
-                Log.i(TAG,"11 mylog: "+ msg.obj);
+                Log.i(TAG,"client mylog: "+ msg.obj);
+                String str = "\n"+msg.obj.toString();
+                show.append(str);
             }
 
         }
@@ -38,7 +43,18 @@ public class BookManagerActivity extends AppCompatActivity {
             new IOnNewBookArrivedListener.Stub() {
                 @Override
                 public void onNewBookArrived(Book newBook) throws RemoteException {
-                    
+                    mHandler.obtainMessage(MESSAGE_NEW_BOOK_ARRIVED,newBook).sendToTarget();
+                }
+            };
+    private IBinder.DeathRecipient mDeathRecipient =
+            new IBinder.DeathRecipient() {
+                @Override
+                public void binderDied() {
+                    if (bookManager == null) {
+                        return;
+                    }
+                    bookManager.asBinder().unlinkToDeath(mDeathRecipient, 0);
+                    bookManager = null;
                 }
             };
     private ServiceConnection conn = new ServiceConnection() {
@@ -47,9 +63,10 @@ public class BookManagerActivity extends AppCompatActivity {
             bookManager = IBookManager.Stub.asInterface(service);
             try {
                 books = bookManager.getBookList();
-              bookManager.registerListener(onArrivedListen);
+                bookManager.registerListener(onArrivedListen);
+                service.linkToDeath(mDeathRecipient,0);
 
-                Log.i("BookManagerActivityLOG", "Books: " + books.toString());
+                Log.i("BookManagerActivityLOG", "client mylog:: " + books.toString());
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -74,8 +91,8 @@ public class BookManagerActivity extends AppCompatActivity {
         bindService(intent, conn, Context.BIND_AUTO_CREATE);
 //        String str = books.toString();
         String str = "";
-        TextView show = (TextView) findViewById(R.id.tv_show);
-        show.setText(str);
+         show = (TextView) findViewById(R.id.tv_show);
+       // show.setText(str);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -100,6 +117,11 @@ public class BookManagerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         unbindService(conn);
+        try {
+            bookManager.unregisterListener(onArrivedListen);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         super.onDestroy();
 
     }

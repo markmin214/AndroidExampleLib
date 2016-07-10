@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(this, BookManagerService.class);
-        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+     //   bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
