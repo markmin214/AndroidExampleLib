@@ -1,5 +1,6 @@
-include ':app_aidl_sevice', ':app_smsReceiver'
-include ':app_aidl_client'
+include  ':app_bullseye_view'
+//':app_aidl_sevice', ':app_smsReceiver',
+//include ':app_aidl_client'
 // ':app_sample',
 //':app_jnihello', ':app_singleModel', ':app_javalearn', ':app_handle', 
 //':app_base_activity_fragment', ':app_viewpage', ':app_tabviewpager', ':app_contextmenu',
