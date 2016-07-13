@@ -8,6 +8,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sample_bulls_eye_view);
+        DrawPaintView paintView = new DrawPaintView(this);
+        setContentView(paintView);
+
+//        setContentView(R.layout.sample_bulls_eye_view);
     }
 }
