@@ -17,5 +17,12 @@
 
 <com.example.myapplication.BUllsEyeView
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="100dp" />
+
+    <com.example.myapplication.CircleView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:padding="10dp"
+        android:background="@color/colorPrimaryDark"
+        app:circleColor="@android:color/holo_blue_light"/>
 </LinearLayout>
