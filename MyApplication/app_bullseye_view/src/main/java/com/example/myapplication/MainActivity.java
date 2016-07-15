@@ -1,9 +1,9 @@
 package com.example.myapplication;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -11,6 +11,9 @@ public class MainActivity extends AppCompatActivity {
 //        DrawPaintView paintView = new DrawPaintView(this);
 //        setContentView(paintView);
 
-        setContentView(R.layout.sample_bulls_eye_view);
+        setContentView(new MySurfaceView(this));
+
+//        setContentView(R.layout.sample_bulls_eye_view);
+
     }
 }

@@ -11,7 +11,7 @@ import android.view.View;
 /**
  * TODO: document your custom view class.
  */
-public class CircleView extends View {
+public class  CircleView extends View {
 
     private int mCircleColor = Color.RED; // TODO: use a default from R.color...
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
