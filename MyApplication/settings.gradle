@@ -1,4 +1,4 @@
-include  ':app_bullseye_view'
+include ':app_bullseye_view', ':app_camera'
 //':app_aidl_sevice', ':app_smsReceiver',
 //include ':app_aidl_client'
 // ':app_sample',
