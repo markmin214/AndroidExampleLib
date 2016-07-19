@@ -11,11 +11,11 @@ import android.widget.Button;
 
 import java.io.IOException;
 
-public class CustomCametaActivity extends Activity implements SurfaceHolder.Callback {
+public class CustomCametaActivity extends Activity  {
     private Button btnCapture;
     private Button btnSwitchCamera;
     private SurfaceView svCamera;
-    SurfaceHolder surfaceHolder;
+    SurfaceHolder mSurfaceHolder;
     Camera mCamera;
 
 
@@ -33,8 +33,24 @@ public class CustomCametaActivity extends Activity implements SurfaceHolder.Call
         btnCapture = (Button) findViewById(R.id.btn_capture);
         btnSwitchCamera = (Button) findViewById(R.id.btn_switch_camera);
         svCamera = (SurfaceView) findViewById(R.id.sv_camera);
-        surfaceHolder = svCamera.getHolder();
-        surfaceHolder.addCallback(this);
+        mSurfaceHolder = svCamera.getHolder();
+        mSurfaceHolder.addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                setStartPreview(mCamera,holder);
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+                mCamera.stopPreview();
+                setStartPreview(mCamera,holder);
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+                releaseCamera(mCamera);
+            }
+        });
 
         btnCapture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +74,7 @@ public class CustomCametaActivity extends Activity implements SurfaceHolder.Call
 /*这里需要注意下这个方法camera.setDisplayOrientation(90)，通过这个方法，我们可以调整摄像头的角度，不然默认是横屏，*/
     private void setStartPreview(Camera camera, SurfaceHolder holder) {
         try {
-            camera.setPreviewDisplay(holder);
+            camera.setPreviewDisplay(mSurfaceHolder);
             camera.setDisplayOrientation(90);
             camera.startPreview();
         } catch (IOException e) {
@@ -77,19 +93,5 @@ public class CustomCametaActivity extends Activity implements SurfaceHolder.Call
         }
     }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        setStartPreview(mCamera,holder);
-    }
 
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-      mCamera.stopPreview();
-        setStartPreview(mCamera,holder);
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-releaseCamera(mCamera);
-    }
 }
