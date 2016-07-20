@@ -32,7 +32,7 @@ public class MainActivity2 extends Activity {
         mFilePath = tempPath + "/" + "test1.png";
 
         ivShow = (ImageView) findViewById(R.id.iv_show);
-        btnGet = (Button) findViewById(R.id.btn_get);
+//        btnGet = (Button) findViewById(R.id.btn_get);
 
 
         btnGet.setOnClickListener(new View.OnClickListener() {

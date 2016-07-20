@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         ivShow = (ImageView) findViewById(R.id.iv_show);
 
 
-        btnGet = (Button) findViewById(R.id.btn_get);
+//        btnGet = (Button) findViewById(R.id.btn_get);
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
